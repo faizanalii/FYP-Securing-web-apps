@@ -24,9 +24,11 @@ def urlstatus(request):
 		if form.is_valid():
 			link=form['urlfield'].value()
 			print(link)
-			sql_os_test=Test_Injection(link)
-			for i in sql_os_test.result_injections:
-				print(i)
+			try:
+				sql_os_test=Test_Injection(link)
+				sql_os_results=sql_os_test.result_injections
+			except Exception as ex:
+				print(ex)
 			#Send inputed link to Links class from extractinglinks module to extract all the external and internal links of web
 			crawl_web=extractinglinks.Links(link)
 			#extracting links returns list of internal and external links 
@@ -69,7 +71,8 @@ def urlstatus(request):
 				rfi=RFI(all_links[0])
 				print("Total Time=",time.time()-start)
 				return render(request,'info.html',{'data':data,'Internal':all_links[0],'External':all_links[1]
-					,'broken_list':broken_list,'os_names':os_names,'sec_headers':sec_headers,'xss_found':xss_found})
+					,'broken_list':broken_list,'os_names':os_names,'sec_headers':sec_headers,'xss_found':xss_found
+					,'sql_os_results':sql_os_results})
 			else:
 				print("Website is Down")
 		else:
