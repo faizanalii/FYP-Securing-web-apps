@@ -102,7 +102,10 @@
 	<div>
 		<h3>Sql, OS Injections</h3>
 		{% for i in sql_os_results%}
-			<p>{{i}}</p>
+			<p>Name: {{i.name}}</p>
+			<p>Risk: {{i.risk}}</p>
+			<p>URL: {{i.url}}</p>
+			<p>Solution: {{i.solution}}</p>
 		{% endfor %}
 	</div>
 </body>	
