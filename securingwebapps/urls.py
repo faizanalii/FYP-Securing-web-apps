@@ -18,5 +18,7 @@ from django.urls import path
 from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.urlstatus,name='urlstatus'),
+    path('',views.index,name='index'),
+    path('scanweb',views.urlstatus,name='testwebsite'),
+    path('report',views.render_pdf_view,name='report')
 ]

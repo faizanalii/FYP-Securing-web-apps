@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Report</title>
+</head>
+<body>
+	<div>
+	<table class="table table-inverse">
+		<thead>
+			<tr>
+				<th>Protocol</th>
+				<th>Port ID</th>
+				<th>State</th>
+				<th>Service</th>
+				<th>Version</th>
+				<th>Product</th>
+			</tr>
+		</thead>
+		<tbody>
+			{%for i in data%}
+			<tr>
+				{%for j in i%}
+					<td>{{j}}</td>
+				{%endfor%}
+			</tr>
+			{%endfor%}
+		</tbody>
+	</table>
+	</div>
+	<div>
+		<h1>Internal Links</h1>
+		{% for i in Internal %}
+			<a href="{{i}}">{{i}}</a><br>
+		{%endfor%}	
+		<h1>External Links</h1>
+		{%for i in External%}
+			<a href="{{i}}">{{i}}</a><br>
+		{%endfor%}
+	</div>
+	<div>
+		<h1>Broken Links</h1>
+		{% if broken_list %}
+		<table class='table table-inverse'>
+			<thead>
+				<tr>
+					<th>URL</th>
+					<th>Broken Link Error</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for i in broken_list%}
+					<tr>
+						{% for j in i%}
+							<td>{{j}}</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</tbody>			
+		</table>
+		{% else %}
+			<p>No Broken Links Found</p>
+		{% endif %}
+	</div>
+	<div>
+		<h4>Remember these OS detections on Server are Brute Forced and we only show you those which have accuracy of more than 90%</h4>
+		<ul>
+			{% for i in os_names %}
+				<li>{{i}}</li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div>
+		<h4>Set these in Header</h4>
+		{% for i in sec_headers%}
+			<p>{{i}}</p>
+		{% endfor %}
+	</div>
+	<div>
+		<h3>XSS</h3>
+		{% for i in xss_found %}
+			{% for j in i %}
+				<p>{{j}}</p>
+			{% endfor %}
+		{% endfor %}
+	</div>
+	<div>
+		<h3>Sql, OS Injections</h3>
+		{% if sql_os_results %}
+		<div>
+			{% for i in sql_os_results%}
+				<p>Name: {{i.name}}</p>
+				<p>Risk: {{i.risk}}</p>
+				<p>URL: {{i.url}}</p>
+				<p>Solution: {{i.solution}}</p>
+			{% endfor %}
+		</div>
+		{% else %}
+			<p>No Sql OS Injections Found</p>
+		{% endif %}
+	</div>
+	<div>
+		<h3>LFI</h3>
+		{% if lfi_results %}
+		<div>
+			{% for i in lfi_results %}
+				<p>{{i}}</p>
+			{%endfor%}
+		</div>
+		{% else %}
+			<p>No LFI Found</p>
+		{% endif %}
+	</div>
+	<div>
+		<h3>RFI</h3>
+		{% if rfi_results %}
+		<div>
+			{% for i in rfi_results %}
+				<p>{{i}}</p>
+			{%endfor%}
+		</div>
+		{% else %}
+			<p>No RFI Found</p>
+		{% endif %}
+	</div>
+</body>
+</html>
